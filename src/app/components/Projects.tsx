@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BASE_PATH } from "../config";
 
 const projects = [
@@ -34,15 +34,27 @@ const projects = [
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const [currentImg, setCurrentImg] = useState(0);
 
+  // Preload all images
+  useEffect(() => {
+    project.images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [project.images]);
+
   return (
     <div className="pixel-card p-6">
-      {/* Image carousel */}
+      {/* Image carousel — all images rendered, only current visible */}
       <div className="relative w-full aspect-video mb-6 border-4 border-foreground overflow-hidden bg-gray-100">
-        <img
-          src={project.images[currentImg]}
-          alt={`${project.title} скриншот ${currentImg + 1}`}
-          className="w-full h-full object-contain"
-        />
+        {project.images.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={`${project.title} скриншот ${i + 1}`}
+            className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
+            style={{ opacity: i === currentImg ? 1 : 0 }}
+          />
+        ))}
 
         {project.images.length > 1 && (
           <>
