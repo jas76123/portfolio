@@ -1,19 +1,17 @@
-import Image from "next/image";
+import { BASE_PATH } from "../config";
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex flex-col items-center justify-center px-6 pt-20"
+      className="section-hero min-h-screen flex flex-col items-center justify-center px-6 pt-20"
     >
       <div className="float mb-8">
         <div className="pixel-image w-48 h-48 md:w-64 md:h-64 relative overflow-hidden">
-          <Image
-            src="/images/photo.png"
+          <img
+            src={`${BASE_PATH}/images/photo.png`}
             alt="Жасмин Агабабян"
-            fill
-            className="object-cover"
-            priority
+            className="w-full h-full object-cover"
           />
         </div>
       </div>
@@ -36,7 +34,7 @@ export default function Hero() {
         <a href="#projects" className="pixel-btn">
           Проекты
         </a>
-        <a href="#contacts" className="pixel-btn" style={{ background: "transparent", color: "var(--foreground)" }}>
+        <a href="#contacts" className="pixel-btn-outline">
           Контакты
         </a>
       </div>

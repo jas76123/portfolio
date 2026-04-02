@@ -15,7 +15,7 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 px-6" style={{ background: "#f0f0f5" }}>
+    <section id="skills" className="section-light py-20 px-6">
       <div className="max-w-4xl mx-auto">
         <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
           Навыки
@@ -27,7 +27,6 @@ export default function Skills() {
               key={skill.name}
               className="pixel-card p-4 flex flex-col items-center gap-3 text-center"
             >
-              {/* Pixel icon square */}
               <div
                 className="w-10 h-10 border-3 border-foreground"
                 style={{ background: skill.color }}

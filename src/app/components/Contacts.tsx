@@ -1,6 +1,6 @@
 export default function Contacts() {
   return (
-    <section id="contacts" className="py-20 px-6" style={{ background: "#f0f0f5" }}>
+    <section id="contacts" className="section-alt py-20 px-6">
       <div className="max-w-4xl mx-auto">
         <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
           Контакты
@@ -88,7 +88,6 @@ export default function Contacts() {
             </div>
           </div>
 
-          {/* Pixel decoration */}
           <div className="mt-10 flex gap-1">
             {[...Array(15)].map((_, i) => (
               <div

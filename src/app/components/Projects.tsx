@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import { BASE_PATH } from "../config";
 
 const projects = [
   {
@@ -11,8 +11,8 @@ const projects = [
     tech: ["Flutter", "Dart", "SQLite"],
     github: "https://github.com/jas76123/vocabmaster",
     images: [
-      "/images/projects/vocabmaster/1.png",
-      "/images/projects/vocabmaster/2.png",
+      `${BASE_PATH}/images/projects/vocabmaster/1.png`,
+      `${BASE_PATH}/images/projects/vocabmaster/2.png`,
     ],
   },
   {
@@ -22,11 +22,11 @@ const projects = [
     tech: ["React", "JavaScript", "CSS"],
     github: "https://github.com/jas76123/HK",
     images: [
-      "/images/projects/hk/1.png",
-      "/images/projects/hk/2.png",
-      "/images/projects/hk/3.png",
-      "/images/projects/hk/4.png",
-      "/images/projects/hk/5.png",
+      `${BASE_PATH}/images/projects/hk/1.png`,
+      `${BASE_PATH}/images/projects/hk/2.png`,
+      `${BASE_PATH}/images/projects/hk/3.png`,
+      `${BASE_PATH}/images/projects/hk/4.png`,
+      `${BASE_PATH}/images/projects/hk/5.png`,
     ],
   },
 ];
@@ -38,11 +38,10 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
     <div className="pixel-card p-6">
       {/* Image carousel */}
       <div className="relative w-full aspect-video mb-6 border-4 border-foreground overflow-hidden bg-gray-100">
-        <Image
+        <img
           src={project.images[currentImg]}
           alt={`${project.title} скриншот ${currentImg + 1}`}
-          fill
-          className="object-contain"
+          className="w-full h-full object-contain"
         />
 
         {project.images.length > 1 && (
@@ -128,7 +127,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-6">
+    <section id="projects" className="section-light py-20 px-6">
       <div className="max-w-5xl mx-auto">
         <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
           Проекты

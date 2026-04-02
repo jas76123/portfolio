@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section id="about" className="py-20 px-6">
+    <section id="about" className="section-alt py-20 px-6">
       <div className="max-w-4xl mx-auto">
         <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
           Обо мне
@@ -18,7 +18,6 @@ export default function About() {
             задачи и создавать полезные продукты.
           </p>
 
-          {/* Pixel decorative element */}
           <div className="mt-8 flex gap-1">
             {[...Array(20)].map((_, i) => (
               <div
