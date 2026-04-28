@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { BASE_PATH } from "../config";
+import { RevealOnScroll } from "./animations/RevealOnScroll";
 
 const projects = [
   {
@@ -34,7 +35,6 @@ const projects = [
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const [currentImg, setCurrentImg] = useState(0);
 
-  // Preload all images
   useEffect(() => {
     project.images.forEach((src) => {
       const img = new Image();
@@ -44,7 +44,6 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
   return (
     <div className="pixel-card p-6">
-      {/* Image carousel — all images rendered, only current visible */}
       <div className="relative w-full aspect-video mb-6 border-4 border-foreground overflow-hidden bg-gray-100">
         {project.images.map((src, i) => (
           <img
@@ -64,7 +63,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                   prev === 0 ? project.images.length - 1 : prev - 1
                 )
               }
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
               style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
             >
               {"<"}
@@ -75,7 +74,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                   prev === project.images.length - 1 ? 0 : prev + 1
                 )
               }
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
               style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
             >
               {">"}
@@ -84,13 +83,12 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         )}
       </div>
 
-      {/* Dots */}
       <div className="flex justify-center gap-2 mb-4">
         {project.images.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrentImg(i)}
-            className="w-3 h-3 border-2 border-foreground"
+            className="w-3 h-3 border-2 border-foreground carousel-dot-btn"
             style={{
               background: i === currentImg ? "var(--accent)" : "transparent",
             }}
@@ -116,7 +114,6 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         {project.description}
       </p>
 
-      {/* Tech tags */}
       <div className="flex flex-wrap gap-2 mb-6">
         {project.tech.map((t) => (
           <span key={t} className="skill-tag">
@@ -141,13 +138,17 @@ export default function Projects() {
   return (
     <section id="projects" className="section-light py-20 px-6">
       <div className="max-w-5xl mx-auto">
-        <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
-          Проекты
-        </h2>
+        <RevealOnScroll>
+          <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
+            Проекты
+          </h2>
+        </RevealOnScroll>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+          {projects.map((project, i) => (
+            <RevealOnScroll key={project.title} delayMs={i * 100}>
+              <ProjectCard project={project} />
+            </RevealOnScroll>
           ))}
         </div>
       </div>
