@@ -291,4 +291,8 @@ body {
   [style*="animation: fadeIn"] { animation: none !important; opacity: 1 !important; }
   .carousel-nav-btn:hover,
   .carousel-dot-btn:hover { transform: none; box-shadow: none; }
+  .pixel-spawn-overlay > * {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
