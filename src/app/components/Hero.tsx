@@ -1,4 +1,7 @@
 import { BASE_PATH } from "../config";
+import { TypingText } from "./animations/TypingText";
+import { PixelSpawn } from "./animations/PixelSpawn";
+import { MouseParallax } from "./animations/MouseParallax";
 
 export default function Hero() {
   return (
@@ -7,13 +10,15 @@ export default function Hero() {
       className="section-hero min-h-screen flex flex-col items-center justify-center px-6 pt-20 relative overflow-hidden"
     >
       {/* Pixel grid background decoration */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: `
-          linear-gradient(var(--foreground) 1px, transparent 1px),
-          linear-gradient(90deg, var(--foreground) 1px, transparent 1px)
-        `,
-        backgroundSize: "32px 32px",
-      }} />
+      <MouseParallax intensity={5} className="absolute inset-0">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `
+            linear-gradient(var(--foreground) 1px, transparent 1px),
+            linear-gradient(90deg, var(--foreground) 1px, transparent 1px)
+          `,
+          backgroundSize: "32px 32px",
+        }} />
+      </MouseParallax>
 
       {/* Floating pixel decorations */}
       <div className="absolute top-20 left-10 w-4 h-4 bg-accent float" style={{ animationDelay: "0s" }} />
@@ -31,36 +36,48 @@ export default function Hero() {
         <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-4 border-r-4 border-accent" />
 
         <div className="float">
-          <div className="pixel-image w-52 h-52 md:w-72 md:h-72 relative overflow-hidden">
-            <img
-              src={`${BASE_PATH}/images/photo.png`}
-              alt="Жасмин Агабабян"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <PixelSpawn gridSize={8} durationMs={600}>
+            <div className="pixel-image w-52 h-52 md:w-72 md:h-72 relative overflow-hidden">
+              <img
+                src={`${BASE_PATH}/images/photo.png`}
+                alt="Жасмин Агабабян"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </PixelSpawn>
         </div>
       </div>
 
       {/* Pixel stars around name */}
       <div className="relative z-10">
         <h1
+          aria-label="Жасмин Агабабян"
           className="text-2xl md:text-4xl text-center mb-4 text-foreground"
           style={{ fontFamily: "var(--pixel-font)", lineHeight: "1.6" }}
         >
-          Жасмин Агабабян
+          <TypingText>Жасмин Агабабян</TypingText>
         </h1>
       </div>
 
       <p
         className="text-accent text-center mb-2 relative z-10"
-        style={{ fontFamily: "var(--pixel-font)", fontSize: "14px" }}
+        style={{
+          fontFamily: "var(--pixel-font)",
+          fontSize: "14px",
+          animation: "fadeIn 500ms ease-out 800ms backwards",
+        }}
       >
         Mobile &amp; Web Разработчик
       </p>
 
       <p
         className="text-center mb-8 relative z-10"
-        style={{ fontFamily: "var(--pixel-font)", fontSize: "10px", color: "var(--accent-light)" }}
+        style={{
+          fontFamily: "var(--pixel-font)",
+          fontSize: "10px",
+          color: "var(--accent-light)",
+          animation: "fadeIn 500ms ease-out 1100ms backwards",
+        }}
       >
         Flutter / React / Python
       </p>
