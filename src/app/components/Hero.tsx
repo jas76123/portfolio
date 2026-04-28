@@ -2,6 +2,7 @@ import { BASE_PATH } from "../config";
 import { TypingText } from "./animations/TypingText";
 import { PixelSpawn } from "./animations/PixelSpawn";
 import { MouseParallax } from "./animations/MouseParallax";
+import { Coin } from "./game/Coin";
 
 export default function Hero() {
   return (
@@ -43,6 +44,7 @@ export default function Hero() {
                 alt="Жасмин Агабабян"
                 className="w-full h-full object-cover"
               />
+              <Coin id="coin_hero" className="top-4 right-4" />
             </div>
           </PixelSpawn>
         </div>

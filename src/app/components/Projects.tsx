@@ -3,10 +3,15 @@
 import { useState, useEffect } from "react";
 import { BASE_PATH } from "../config";
 import { RevealOnScroll } from "./animations/RevealOnScroll";
+import { Coin } from "./game/Coin";
+import { useAchievementTrigger } from "../hooks/useAchievementTrigger";
+import { useGameState } from "../hooks/useGameState";
+import type { AchievementId } from "./game/types";
 
 const projects = [
   {
     title: "VocabMaster",
+    achievementId: "app_reviewer" as AchievementId,
     description:
       "Мобильное приложение для изучения иностранных слов с флеш-карточками. Русско-английский и англо-русский словарь с возможностью добавления и запоминания слов.",
     tech: ["Flutter", "Dart", "SQLite"],
@@ -18,6 +23,7 @@ const projects = [
   },
   {
     title: "Hello Kitty Store",
+    achievementId: "storefront_auditor" as AchievementId,
     description:
       "Интернет-магазин товаров Hello Kitty с каталогом, фильтрацией по категориям и ценам, корзиной покупок, страницами About и Contact.",
     tech: ["React", "JavaScript", "CSS"],
@@ -34,6 +40,22 @@ const projects = [
 
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const [currentImg, setCurrentImg] = useState(0);
+  const [seen, setSeen] = useState<Set<number>>(() => new Set([0]));
+  const { state, unlockAchievement } = useGameState();
+
+  useEffect(() => {
+    setSeen((prev) => {
+      if (prev.has(currentImg)) return prev;
+      const next = new Set(prev);
+      next.add(currentImg);
+      return next;
+    });
+  }, [currentImg]);
+
+  useAchievementTrigger(
+    project.achievementId,
+    seen.size >= project.images.length
+  );
 
   useEffect(() => {
     project.images.forEach((src) => {
@@ -41,6 +63,12 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
       img.src = src;
     });
   }, [project.images]);
+
+  const onGitHubClick = () => {
+    if (state.gameMode && !state.achievements.includes("code_inspector")) {
+      unlockAchievement("code_inspector");
+    }
+  };
 
   return (
     <div className="pixel-card p-6">
@@ -54,6 +82,10 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
             style={{ opacity: i === currentImg ? 1 : 0 }}
           />
         ))}
+
+        {project.title === "Hello Kitty Store" && currentImg === 2 && (
+          <Coin id="coin_carousel" className="bottom-4 right-4" />
+        )}
 
         {project.images.length > 1 && (
           <>
@@ -105,11 +137,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
       <p
         className="text-foreground mb-4"
-        style={{
-          fontFamily: "var(--pixel-font)",
-          fontSize: "10px",
-          lineHeight: "2",
-        }}
+        style={{ fontFamily: "var(--pixel-font)", fontSize: "10px", lineHeight: "2" }}
       >
         {project.description}
       </p>
@@ -127,6 +155,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         target="_blank"
         rel="noopener noreferrer"
         className="pixel-btn inline-block"
+        onClick={onGitHubClick}
       >
         GitHub
       </a>
