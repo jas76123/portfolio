@@ -1,5 +1,6 @@
 import { BASE_PATH } from "../config";
 import { TypingText } from "./animations/TypingText";
+import { PixelSpawn } from "./animations/PixelSpawn";
 
 export default function Hero() {
   return (
@@ -32,13 +33,15 @@ export default function Hero() {
         <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-4 border-r-4 border-accent" />
 
         <div className="float">
-          <div className="pixel-image w-52 h-52 md:w-72 md:h-72 relative overflow-hidden">
-            <img
-              src={`${BASE_PATH}/images/photo.png`}
-              alt="Жасмин Агабабян"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <PixelSpawn gridSize={8} durationMs={600}>
+            <div className="pixel-image w-52 h-52 md:w-72 md:h-72 relative overflow-hidden">
+              <img
+                src={`${BASE_PATH}/images/photo.png`}
+                alt="Жасмин Агабабян"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </PixelSpawn>
         </div>
       </div>
 
