@@ -1,6 +1,7 @@
 import { BASE_PATH } from "../config";
 import { TypingText } from "./animations/TypingText";
 import { PixelSpawn } from "./animations/PixelSpawn";
+import { MouseParallax } from "./animations/MouseParallax";
 
 export default function Hero() {
   return (
@@ -9,13 +10,15 @@ export default function Hero() {
       className="section-hero min-h-screen flex flex-col items-center justify-center px-6 pt-20 relative overflow-hidden"
     >
       {/* Pixel grid background decoration */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: `
-          linear-gradient(var(--foreground) 1px, transparent 1px),
-          linear-gradient(90deg, var(--foreground) 1px, transparent 1px)
-        `,
-        backgroundSize: "32px 32px",
-      }} />
+      <MouseParallax intensity={5} className="absolute inset-0">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `
+            linear-gradient(var(--foreground) 1px, transparent 1px),
+            linear-gradient(90deg, var(--foreground) 1px, transparent 1px)
+          `,
+          backgroundSize: "32px 32px",
+        }} />
+      </MouseParallax>
 
       {/* Floating pixel decorations */}
       <div className="absolute top-20 left-10 w-4 h-4 bg-accent float" style={{ animationDelay: "0s" }} />
