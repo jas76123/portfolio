@@ -30,10 +30,9 @@ export default function Skills() {
             <RevealOnScroll key={skill.name} delayMs={i * 50}>
               <div className="pixel-card p-4 flex flex-col items-center gap-3 text-center">
                 <div
-                  className="w-14 h-14 flex items-center justify-center border-3 border-foreground rounded-none float"
+                  className="w-14 h-14 flex items-center justify-center border-3 border-foreground rounded-none"
                   style={{
                     background: skill.color,
-                    animationDelay: `${(i % 5) * 0.2}s`,
                   }}
                 >
                   <img
