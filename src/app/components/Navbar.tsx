@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { GameToggleButton } from "./game/GameToggleButton";
-import { Coin } from "./game/Coin";
 
 const links = [
   { href: "#hero", label: "Главная" },
@@ -17,14 +15,9 @@ export default function Navbar() {
 
   return (
     <nav className="pixel-nav fixed top-0 left-0 right-0 z-50 px-6 py-4">
-      <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
-        <a
-          href="#hero"
-          className="relative text-accent text-sm font-bold"
-          style={{ fontFamily: "var(--pixel-font)" }}
-        >
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <a href="#hero" className="text-accent text-sm font-bold" style={{ fontFamily: "var(--pixel-font)" }}>
           {"<JA/>"}
-          <Coin id="coin_navbar" className="-top-3 -right-4" />
         </a>
 
         {/* Desktop */}
@@ -41,19 +34,15 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          <GameToggleButton />
-
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden text-foreground text-xl"
-            onClick={() => setOpen(!open)}
-            aria-label="Меню"
-            style={{ fontFamily: "var(--pixel-font)", fontSize: "16px" }}
-          >
-            {open ? "X" : "="}
-          </button>
-        </div>
+        {/* Mobile toggle */}
+        <button
+          className="md:hidden text-foreground text-xl"
+          onClick={() => setOpen(!open)}
+          aria-label="Меню"
+          style={{ fontFamily: "var(--pixel-font)", fontSize: "16px" }}
+        >
+          {open ? "X" : "="}
+        </button>
       </div>
 
       {/* Mobile menu */}
