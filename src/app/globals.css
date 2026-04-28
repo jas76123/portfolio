@@ -198,3 +198,79 @@ body {
 .float {
   animation: float 3s ease-in-out infinite;
 }
+
+/* === Polish Layer animations === */
+
+@keyframes glitch {
+  0%   { transform: translateX(0); text-shadow: none; }
+  20%  { transform: translateX(-2px); text-shadow: 2px 0 var(--accent), -2px 0 var(--accent-light); }
+  40%  { transform: translateX(2px); text-shadow: -2px 0 var(--accent), 2px 0 var(--accent-light); }
+  60%  { transform: translateX(-1px); text-shadow: 1px 0 var(--accent), -1px 0 var(--accent-light); }
+  80%  { transform: translateX(1px); text-shadow: -1px 0 var(--accent), 1px 0 var(--accent-light); }
+  100% { transform: translateX(0); text-shadow: none; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-1px, 1px); }
+  50%      { transform: translate(1px, -1px); }
+  75%      { transform: translate(-1px, -1px); }
+}
+
+@keyframes pixelFade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* === Scroll-reveal utility classes === */
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section title glitch fires on first reveal */
+.reveal-on-scroll.is-visible .section-title {
+  animation: glitch 200ms steps(5, end) 1;
+}
+
+/* === Enhanced hover on existing pixel-card (project cards) === */
+
+.pixel-card:hover {
+  transform: translate(-2px, -2px) rotate(-0.5deg);
+}
+
+/* === Active shake on pixel-btn === */
+
+.pixel-btn:active,
+.pixel-btn-outline:active {
+  animation: shake 100ms steps(4, end) 1;
+}
+
+/* === prefers-reduced-motion: disable everything we just added + existing motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reveal-on-scroll.is-visible .section-title { animation: none; }
+  .pixel-card:hover { transform: none; }
+  .pixel-btn:active, .pixel-btn-outline:active { animation: none; }
+  .float, .blink { animation: none !important; }
+  [style*="animation: fadeIn"] { animation: none !important; opacity: 1 !important; }
+}
