@@ -1,4 +1,5 @@
 import { BASE_PATH } from "../config";
+import { TypingText } from "./animations/TypingText";
 
 export default function Hero() {
   return (
@@ -44,23 +45,33 @@ export default function Hero() {
       {/* Pixel stars around name */}
       <div className="relative z-10">
         <h1
+          aria-label="Жасмин Агабабян"
           className="text-2xl md:text-4xl text-center mb-4 text-foreground"
           style={{ fontFamily: "var(--pixel-font)", lineHeight: "1.6" }}
         >
-          Жасмин Агабабян
+          <TypingText>Жасмин Агабабян</TypingText>
         </h1>
       </div>
 
       <p
         className="text-accent text-center mb-2 relative z-10"
-        style={{ fontFamily: "var(--pixel-font)", fontSize: "14px" }}
+        style={{
+          fontFamily: "var(--pixel-font)",
+          fontSize: "14px",
+          animation: "fadeIn 500ms ease-out 800ms backwards",
+        }}
       >
         Mobile &amp; Web Разработчик
       </p>
 
       <p
         className="text-center mb-8 relative z-10"
-        style={{ fontFamily: "var(--pixel-font)", fontSize: "10px", color: "var(--accent-light)" }}
+        style={{
+          fontFamily: "var(--pixel-font)",
+          fontSize: "10px",
+          color: "var(--accent-light)",
+          animation: "fadeIn 500ms ease-out 1100ms backwards",
+        }}
       >
         Flutter / React / Python
       </p>
