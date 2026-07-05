@@ -79,7 +79,7 @@ export default function Hero() {
           animation: "fadeIn 500ms ease-out 1100ms backwards",
         }}
       >
-        Flutter / React / Python
+        Kotlin / React / Python
       </p>
 
       <div className="flex gap-4 flex-wrap justify-center relative z-10">

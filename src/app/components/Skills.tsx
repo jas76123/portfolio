@@ -2,8 +2,8 @@ import { RevealOnScroll } from "./animations/RevealOnScroll";
 
 const skills = [
   { name: "Kotlin", color: "#7F52FF", icon: "kotlin" },
-  { name: "Flutter", color: "#02569B", icon: "flutter" },
-  { name: "Dart", color: "#0175C2", icon: "dart" },
+  { name: "Ktor", color: "#087CFA", icon: "ktor" },
+  { name: "Docker", color: "#2496ED", icon: "docker" },
   { name: "Python", color: "#3776AB", icon: "python" },
   { name: "JavaScript", color: "#F7DF1E", icon: "javascript" },
   { name: "TypeScript", color: "#3178C6", icon: "typescript" },
@@ -11,7 +11,6 @@ const skills = [
   { name: "Next.js", color: "#000000", icon: "nextdotjs" },
   { name: "SQL", color: "#336791", icon: "postgresql" },
   { name: "HTML/CSS", color: "#E34F26", icon: "html5" },
-  { name: "Tailwind", color: "#06B6D4", icon: "tailwindcss" },
   { name: "Git", color: "#F05032", icon: "git" },
 ];
 
