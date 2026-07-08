@@ -6,28 +6,30 @@ import { RevealOnScroll } from "./animations/RevealOnScroll";
 
 const projects = [
   {
+    title: "Чистый город",
+    description:
+      "Гражданское приложение для жалоб на состояние города: жители отправляют обращения с фото и геометкой, следят за статусом на карте и в ленте, а сотрудники обрабатывают жалобы через веб-панель администратора. Дипломный проект с мобильным клиентом и бэкендом.",
+    tech: ["Kotlin Multiplatform", "Compose", "Ktor", "Docker"],
+    github: "https://github.com/jas76123/clean-city",
+    images: [
+      `${BASE_PATH}/images/projects/cleancity/1.jpeg`,
+      `${BASE_PATH}/images/projects/cleancity/2.jpeg`,
+      `${BASE_PATH}/images/projects/cleancity/3.jpeg`,
+      `${BASE_PATH}/images/projects/cleancity/4.jpeg`,
+      `${BASE_PATH}/images/projects/cleancity/5.jpeg`,
+      `${BASE_PATH}/images/projects/cleancity/6.png`,
+      `${BASE_PATH}/images/projects/cleancity/7.png`,
+    ],
+  },
+  {
     title: "VocabMaster",
     description:
       "Мобильное приложение для изучения иностранных слов с флеш-карточками. Русско-английский и англо-русский словарь с возможностью добавления и запоминания слов.",
-    tech: ["Flutter", "Dart", "SQLite"],
+    tech: ["Kotlin", "Jetpack Compose", "Room"],
     github: "https://github.com/jas76123/vocabmaster",
     images: [
       `${BASE_PATH}/images/projects/vocabmaster/1.png`,
       `${BASE_PATH}/images/projects/vocabmaster/2.png`,
-    ],
-  },
-  {
-    title: "Hello Kitty Store",
-    description:
-      "Интернет-магазин товаров Hello Kitty с каталогом, фильтрацией по категориям и ценам, корзиной покупок, страницами About и Contact.",
-    tech: ["React", "JavaScript", "CSS"],
-    github: "https://github.com/jas76123/HK",
-    images: [
-      `${BASE_PATH}/images/projects/hk/1.png`,
-      `${BASE_PATH}/images/projects/hk/2.png`,
-      `${BASE_PATH}/images/projects/hk/3.png`,
-      `${BASE_PATH}/images/projects/hk/4.png`,
-      `${BASE_PATH}/images/projects/hk/5.png`,
     ],
   },
 ];
