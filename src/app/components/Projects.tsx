@@ -34,28 +34,49 @@ const projects = [
   },
 ];
 
+// Максимальная высота окна со скриншотом: вертикальный скрин телефона
+// не должен растягивать карточку на всю страницу.
+const MAX_MEDIA_HEIGHT = 460;
+const FALLBACK_RATIO = 16 / 9;
+
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const [currentImg, setCurrentImg] = useState(0);
+  const [ratios, setRatios] = useState<Record<string, number>>({});
 
   useEffect(() => {
     project.images.forEach((src) => {
       const img = new Image();
+      img.onload = () =>
+        setRatios((prev) =>
+          prev[src] ? prev : { ...prev, [src]: img.naturalWidth / img.naturalHeight }
+        );
       img.src = src;
     });
   }, [project.images]);
 
+  const ratio = ratios[project.images[currentImg]] ?? FALLBACK_RATIO;
+
   return (
     <div className="pixel-card p-6">
-      <div className="relative w-full aspect-video mb-6 border-4 border-foreground overflow-hidden bg-gray-100">
-        {project.images.map((src, i) => (
-          <img
-            key={src}
-            src={src}
-            alt={`${project.title} скриншот ${i + 1}`}
-            className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
-            style={{ opacity: i === currentImg ? 1 : 0 }}
-          />
-        ))}
+      <div className="relative w-full mb-6">
+        <div
+          className="relative mx-auto border-4 border-foreground overflow-hidden bg-gray-100 transition-[max-width] duration-300"
+          style={{
+            aspectRatio: String(ratio),
+            width: "100%",
+            maxWidth: `${Math.round(ratio * MAX_MEDIA_HEIGHT)}px`,
+          }}
+        >
+          {project.images.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={`${project.title} скриншот ${i + 1}`}
+              className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
+              style={{ opacity: i === currentImg ? 1 : 0 }}
+            />
+          ))}
+        </div>
 
         {project.images.length > 1 && (
           <>
@@ -65,7 +86,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                   prev === 0 ? project.images.length - 1 : prev - 1
                 )
               }
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
               style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
             >
               {"<"}
@@ -76,7 +97,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                   prev === project.images.length - 1 ? 0 : prev + 1
                 )
               }
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
               style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
             >
               {">"}
