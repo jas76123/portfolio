@@ -92,7 +92,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
     <div className="pixel-card p-6">
       <div ref={slotRef} className="relative w-full mb-6">
         <div
-          className={`relative mx-auto border-2 border-foreground overflow-hidden bg-gray-100 ${
+          className={`relative mx-auto overflow-hidden ${
             animated ? "project-media" : ""
           }`}
           style={frameSize}
