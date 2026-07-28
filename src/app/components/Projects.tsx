@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BASE_PATH } from "../config";
 import { RevealOnScroll } from "./animations/RevealOnScroll";
 
@@ -42,6 +42,9 @@ const FALLBACK_RATIO = 16 / 9;
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const [currentImg, setCurrentImg] = useState(0);
   const [ratios, setRatios] = useState<Record<string, number>>({});
+  const [slotWidth, setSlotWidth] = useState(0);
+  const [animated, setAnimated] = useState(false);
+  const slotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     project.images.forEach((src) => {
@@ -54,25 +57,52 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
     });
   }, [project.images]);
 
+  // Ширина, доступную под скриншот, меряем у обёртки: рамка внутри неё
+  // задаётся в пикселях, поэтому обратной связи по размеру не возникает.
+  useEffect(() => {
+    const slot = slotRef.current;
+    if (!slot) return;
+
+    const measure = () => setSlotWidth(slot.clientWidth);
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(slot);
+    return () => observer.disconnect();
+  }, []);
+
+  // Первую подгонку размера делаем без анимации, иначе рамка «выезжает»
+  // при появлении секции.
+  useEffect(() => {
+    if (!slotWidth) return;
+    const id = requestAnimationFrame(() => setAnimated(true));
+    return () => cancelAnimationFrame(id);
+  }, [slotWidth]);
+
   const ratio = ratios[project.images[currentImg]] ?? FALLBACK_RATIO;
+  const height = slotWidth ? Math.min(MAX_MEDIA_HEIGHT, slotWidth / ratio) : 0;
+
+  // Ширина и высота задаются в пикселях, поэтому меняются одной анимацией
+  // с той же кривой и длительностью, что и кроссфейд картинок.
+  const frameSize = slotWidth
+    ? { width: `${height * ratio}px`, height: `${height}px` }
+    : { width: "100%", aspectRatio: String(ratio) };
 
   return (
     <div className="pixel-card p-6">
-      <div className="relative w-full mb-6">
+      <div ref={slotRef} className="relative w-full mb-6">
         <div
-          className="relative mx-auto border-4 border-foreground overflow-hidden bg-gray-100 transition-[max-width] duration-300"
-          style={{
-            aspectRatio: String(ratio),
-            width: "100%",
-            maxWidth: `${Math.round(ratio * MAX_MEDIA_HEIGHT)}px`,
-          }}
+          className={`relative mx-auto border-2 border-foreground overflow-hidden bg-gray-100 ${
+            animated ? "project-media" : ""
+          }`}
+          style={frameSize}
         >
           {project.images.map((src, i) => (
             <img
               key={src}
               src={src}
               alt={`${project.title} скриншот ${i + 1}`}
-              className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
+              className="project-media-img absolute inset-0 w-full h-full object-contain"
               style={{ opacity: i === currentImg ? 1 : 0 }}
             />
           ))}
@@ -86,7 +116,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                   prev === 0 ? project.images.length - 1 : prev - 1
                 )
               }
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border-2 border-foreground px-2 py-1 carousel-nav-btn"
               style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
             >
               {"<"}
@@ -97,7 +127,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                   prev === project.images.length - 1 ? 0 : prev + 1
                 )
               }
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border-3 border-foreground px-2 py-1 carousel-nav-btn"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border-2 border-foreground px-2 py-1 carousel-nav-btn"
               style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
             >
               {">"}
