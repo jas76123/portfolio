@@ -1,4 +1,4 @@
-import { BASE_PATH } from "../config";
+import { BASE_PATH, PHOTO_SIZES } from "../config";
 import { TypingText } from "./animations/TypingText";
 import { PixelSpawn } from "./animations/PixelSpawn";
 import { MouseParallax } from "./animations/MouseParallax";
@@ -39,8 +39,14 @@ export default function Hero() {
           <PixelSpawn gridSize={8} durationMs={600}>
             <div className="pixel-image w-52 h-52 md:w-72 md:h-72 relative overflow-hidden">
               <img
-                src={`${BASE_PATH}/images/photo.png`}
+                src={`${BASE_PATH}/images/photo-288.jpg`}
+                srcSet={`${BASE_PATH}/images/photo-288.jpg 288w, ${BASE_PATH}/images/photo-576.jpg 576w`}
+                sizes={PHOTO_SIZES}
+                width={288}
+                height={288}
                 alt="Жасмин Агабабян"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>

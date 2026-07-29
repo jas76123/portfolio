@@ -52,12 +52,29 @@ const FALLBACK_RATIO = 16 / 9;
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const [currentImg, setCurrentImg] = useState(0);
   const [ratios, setRatios] = useState<Record<string, number>>({});
+  const [loaded, setLoaded] = useState<Set<number>>(() => new Set([0]));
   const [slotWidth, setSlotWidth] = useState(0);
   const [animated, setAnimated] = useState(false);
   const slotRef = useRef<HTMLDivElement>(null);
+  const requested = useRef<Set<string>>(new Set());
 
+  // Грузим только текущий кадр и соседей: раньше карточка тянула все
+  // скриншоты сразу и отбирала канал у фото на первом экране.
   useEffect(() => {
-    project.images.forEach((src) => {
+    const count = project.images.length;
+    const neighbours = [currentImg, (currentImg + 1) % count, (currentImg - 1 + count) % count];
+
+    setLoaded((prev) => {
+      const next = new Set(prev);
+      neighbours.forEach((i) => next.add(i));
+      return next.size === prev.size ? prev : next;
+    });
+
+    neighbours.forEach((i) => {
+      const src = project.images[i];
+      if (requested.current.has(src)) return;
+      requested.current.add(src);
+
       const img = new Image();
       img.onload = () =>
         setRatios((prev) =>
@@ -65,7 +82,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         );
       img.src = src;
     });
-  }, [project.images]);
+  }, [project.images, currentImg]);
 
   // Ширина, доступную под скриншот, меряем у обёртки: рамка внутри неё
   // задаётся в пикселях, поэтому обратной связи по размеру не возникает.
@@ -107,15 +124,19 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
           }`}
           style={frameSize}
         >
-          {project.images.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt={`${project.title} скриншот ${i + 1}`}
-              className="project-media-img absolute inset-0 w-full h-full object-contain"
-              style={{ opacity: i === currentImg ? 1 : 0 }}
-            />
-          ))}
+          {project.images.map((src, i) =>
+            loaded.has(i) ? (
+              <img
+                key={src}
+                src={src}
+                alt={`${project.title} скриншот ${i + 1}`}
+                loading="lazy"
+                decoding="async"
+                className="project-media-img absolute inset-0 w-full h-full object-contain"
+                style={{ opacity: i === currentImg ? 1 : 0 }}
+              />
+            ) : null
+          )}
         </div>
 
         {project.images.length > 1 && (
