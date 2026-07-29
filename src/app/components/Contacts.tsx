@@ -38,6 +38,33 @@ export default function Contacts() {
                 </div>
               </div>
 
+              {/* Telegram */}
+              <div className="flex items-start gap-4">
+                <div
+                  className="w-10 h-10 bg-accent border-3 border-foreground flex items-center justify-center shrink-0"
+                  style={{ fontFamily: "var(--pixel-font)", fontSize: "10px", color: "#fff" }}
+                >
+                  TG
+                </div>
+                <div>
+                  <p
+                    className="text-foreground mb-2"
+                    style={{ fontFamily: "var(--pixel-font)", fontSize: "10px" }}
+                  >
+                    Telegram
+                  </p>
+                  <a
+                    href="https://t.me/jasmin_jajaja"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline"
+                    style={{ fontFamily: "var(--pixel-font)", fontSize: "11px" }}
+                  >
+                    @jasmin_jajaja
+                  </a>
+                </div>
+              </div>
+
               {/* VK */}
               <div className="flex items-start gap-4">
                 <div
