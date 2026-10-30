@@ -114,6 +114,42 @@ body {
   display: inline-block;
 }
 
+/* Project badge: хакатон, место, диплом */
+.project-badge {
+  background: var(--accent);
+  color: #fff;
+  border: 3px solid var(--foreground);
+  padding: 6px 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  line-height: 1.6;
+  display: inline-block;
+}
+
+/* Project contribution list with pixel bullets */
+.project-points {
+  list-style: none;
+  padding: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  line-height: 2;
+}
+
+.project-points li {
+  position: relative;
+  padding-left: 16px;
+}
+
+.project-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+
 /* Section title */
 .section-title {
   font-family: 'Press Start 2P', monospace;

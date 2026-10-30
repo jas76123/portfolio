@@ -4,8 +4,8 @@ import { CursorTrail } from "./components/animations/CursorTrail";
 
 export const metadata: Metadata = {
   title: "Жасмин Агабабян — Портфолио",
-  description: "Персональное портфолио разработчика Жасмин Агабабян. Проекты, навыки и контакты.",
-  keywords: ["портфолио", "разработчик", "Kotlin", "React", "Next.js", "Python"],
+  description: "Портфолио менеджера проектов Жасмин Агабабян: хакатоны, проекты, навыки и контакты.",
+  keywords: ["портфолио", "менеджер проектов", "project manager", "хакатон", "MVP", "требования"],
 };
 
 export default function RootLayout({

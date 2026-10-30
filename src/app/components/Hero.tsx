@@ -73,7 +73,7 @@ export default function Hero() {
           animation: "fadeIn 500ms ease-out 800ms backwards",
         }}
       >
-        Mobile &amp; Web Разработчик
+        Менеджер проектов
       </p>
 
       <p
@@ -85,7 +85,7 @@ export default function Hero() {
           animation: "fadeIn 500ms ease-out 1100ms backwards",
         }}
       >
-        Kotlin / React / Python
+        Требования · Backlog · MVP · Приёмка
       </p>
 
       <div className="flex gap-4 flex-wrap justify-center relative z-10">
