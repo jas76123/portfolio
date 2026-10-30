@@ -11,7 +11,7 @@ type Project = {
   role?: string;
   points?: string[];
   tech: string[];
-  github?: string;
+  repo?: { url: string; label: string };
   images: string[];
 };
 
@@ -29,6 +29,7 @@ const projects: Project[] = [
       "Довела команду из пяти человек до сдачи в срок",
     ],
     tech: ["MVP", "Приоритизация", "Функциональное тестирование", "Go", "React"],
+    repo: { url: "https://github.com/ostrovok-hackathon-2026/rokunana", label: "GitHub" },
     images: [1, 2, 3, 4, 5, 6, 7].map(
       (n) => `${BASE_PATH}/images/projects/orbi/0${n}.jpg`
     ),
@@ -47,6 +48,7 @@ const projects: Project[] = [
       "Проводила прогоны пользовательских сценариев перед сдачей",
     ],
     tech: ["MVP", "Jira", "Дейлики", "Пользовательские сценарии", "React Native", "Python"],
+    repo: { url: "https://sourcecraft.dev/cd-rec/construction-monitoring?rev=main", label: "SourceCraft" },
     // Сначала мобильное приложение прораба, затем дашборд руководителя,
     // аналитика камер с площадки и импорт графика
     images: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
@@ -64,7 +66,7 @@ const projects: Project[] = [
       "Прошла путь от требований и проектирования до разработки, тестирования и защиты",
     ],
     tech: ["Kotlin Multiplatform", "Compose", "Ktor", "Docker"],
-    github: "https://github.com/jas76123/clean-city",
+    repo: { url: "https://github.com/jas76123/clean-city", label: "GitHub" },
     images: [
       // Мобильный клиент
       `${BASE_PATH}/images/projects/cleancity/01.jpg`,
@@ -90,7 +92,7 @@ const projects: Project[] = [
     description:
       "Мобильное приложение для изучения иностранных слов с флеш-карточками. Русско-английский и англо-русский словарь с возможностью добавления и запоминания слов.",
     tech: ["Kotlin", "Jetpack Compose", "Room"],
-    github: "https://github.com/jas76123/vocabmaster",
+    repo: { url: "https://github.com/jas76123/vocabmaster", label: "GitHub" },
     images: [
       `${BASE_PATH}/images/projects/vocabmaster/1.png`,
       `${BASE_PATH}/images/projects/vocabmaster/2.png`,
@@ -170,127 +172,134 @@ function ProjectCard({ project }: { project: Project }) {
     : { width: "100%", aspectRatio: String(ratio) };
 
   return (
-    <div className="pixel-card p-6">
-      <div ref={slotRef} className="relative w-full mb-6">
-        <div
-          className={`relative mx-auto overflow-hidden ${
-            animated ? "project-media" : ""
-          }`}
-          style={frameSize}
-        >
-          {project.images.map((src, i) =>
-            loaded.has(i) ? (
-              <img
-                key={src}
-                src={src}
-                alt={`${project.title} скриншот ${i + 1}`}
-                loading="lazy"
-                decoding="async"
-                className="project-media-img absolute inset-0 w-full h-full object-contain"
-                style={{ opacity: i === currentImg ? 1 : 0 }}
-              />
-            ) : null
+    // На десктопе карточка горизонтальная: слева скриншоты, справа текст.
+    // Так карточки идут по одной в ряд и не оставляют пустот под короткой соседкой.
+    <div className="pixel-card p-6 flex flex-col md:flex-row gap-6 md:gap-8">
+      <div className="md:w-1/2 md:shrink-0 md:self-center">
+        <div ref={slotRef} className="relative w-full mb-6">
+          <div
+            className={`relative mx-auto overflow-hidden ${
+              animated ? "project-media" : ""
+            }`}
+            style={frameSize}
+          >
+            {project.images.map((src, i) =>
+              loaded.has(i) ? (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`${project.title} скриншот ${i + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="project-media-img absolute inset-0 w-full h-full object-contain"
+                  style={{ opacity: i === currentImg ? 1 : 0 }}
+                />
+              ) : null
+            )}
+          </div>
+
+          {project.images.length > 1 && (
+            <>
+              <button
+                onClick={() =>
+                  setCurrentImg((prev) =>
+                    prev === 0 ? project.images.length - 1 : prev - 1
+                  )
+                }
+                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border-2 border-foreground px-2 py-1 carousel-nav-btn"
+                style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
+              >
+                {"<"}
+              </button>
+              <button
+                onClick={() =>
+                  setCurrentImg((prev) =>
+                    prev === project.images.length - 1 ? 0 : prev + 1
+                  )
+                }
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border-2 border-foreground px-2 py-1 carousel-nav-btn"
+                style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
+              >
+                {">"}
+              </button>
+            </>
           )}
         </div>
 
-        {project.images.length > 1 && (
-          <>
+        <div className="flex justify-center gap-2 mb-4">
+          {project.images.map((_, i) => (
             <button
-              onClick={() =>
-                setCurrentImg((prev) =>
-                  prev === 0 ? project.images.length - 1 : prev - 1
-                )
-              }
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white border-2 border-foreground px-2 py-1 carousel-nav-btn"
-              style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
-            >
-              {"<"}
-            </button>
-            <button
-              onClick={() =>
-                setCurrentImg((prev) =>
-                  prev === project.images.length - 1 ? 0 : prev + 1
-                )
-              }
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white border-2 border-foreground px-2 py-1 carousel-nav-btn"
-              style={{ fontFamily: "var(--pixel-font)", fontSize: "12px" }}
-            >
-              {">"}
-            </button>
-          </>
+              key={i}
+              onClick={() => setCurrentImg(i)}
+              className="w-3 h-3 border-2 border-foreground carousel-dot-btn"
+              style={{
+                background: i === currentImg ? "var(--accent)" : "transparent",
+              }}
+            />
+          ))}
+        </div>
+
+      </div>
+
+      <div className="flex flex-col items-start md:flex-1 min-w-0">
+        {project.badge && (
+          <span className="project-badge mb-3">{project.badge}</span>
+        )}
+
+        <h3
+          className="text-foreground mb-3"
+          style={{ fontFamily: "var(--pixel-font)", fontSize: "16px" }}
+        >
+          {project.title}
+        </h3>
+
+        <p
+          className="text-foreground mb-4"
+          style={{
+            fontFamily: "var(--pixel-font)",
+            fontSize: "10px",
+            lineHeight: "2",
+          }}
+        >
+          {project.description}
+        </p>
+
+        {project.role && (
+          <p
+            className="text-accent mb-2"
+            style={{ fontFamily: "var(--pixel-font)", fontSize: "10px", lineHeight: "1.8" }}
+          >
+            Моя роль: {project.role}
+          </p>
+        )}
+
+        {project.points && (
+          <ul className="project-points mb-4">
+            {project.points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        )}
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tech.map((t) => (
+            <span key={t} className="skill-tag">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {project.repo && (
+          <a
+            href={project.repo.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pixel-btn inline-block"
+          >
+            {project.repo.label}
+          </a>
         )}
       </div>
-
-      <div className="flex justify-center gap-2 mb-4">
-        {project.images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentImg(i)}
-            className="w-3 h-3 border-2 border-foreground carousel-dot-btn"
-            style={{
-              background: i === currentImg ? "var(--accent)" : "transparent",
-            }}
-          />
-        ))}
-      </div>
-
-      {project.badge && (
-        <span className="project-badge mb-3">{project.badge}</span>
-      )}
-
-      <h3
-        className="text-foreground mb-3"
-        style={{ fontFamily: "var(--pixel-font)", fontSize: "16px" }}
-      >
-        {project.title}
-      </h3>
-
-      <p
-        className="text-foreground mb-4"
-        style={{
-          fontFamily: "var(--pixel-font)",
-          fontSize: "10px",
-          lineHeight: "2",
-        }}
-      >
-        {project.description}
-      </p>
-
-      {project.role && (
-        <p
-          className="text-accent mb-2"
-          style={{ fontFamily: "var(--pixel-font)", fontSize: "10px", lineHeight: "1.8" }}
-        >
-          Моя роль: {project.role}
-        </p>
-      )}
-
-      {project.points && (
-        <ul className="project-points mb-4">
-          {project.points.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
-      )}
-
-      <div className="flex flex-wrap gap-2 mb-6">
-        {project.tech.map((t) => (
-          <span key={t} className="skill-tag">
-            {t}
-          </span>
-        ))}
-      </div>
-
-      {project.github && (
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="pixel-btn inline-block"
-        >
-          GitHub
-        </a>
-      )}
     </div>
   );
 }
@@ -305,7 +314,7 @@ export default function Projects() {
           </h2>
         </RevealOnScroll>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="flex flex-col gap-10">
           {projects.map((project, i) => (
             <RevealOnScroll key={project.title} delayMs={i * 100}>
               <ProjectCard project={project} />
