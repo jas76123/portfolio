@@ -29,7 +29,7 @@ const projects: Project[] = [
       "Довела команду из пяти человек до сдачи в срок",
     ],
     tech: ["MVP", "Приоритизация", "Функциональное тестирование", "Go", "React"],
-    repo: { url: "https://github.com/ostrovok-hackathon-2026/rokunana", label: "GitHub" },
+    repo: { url: "https://github.com/jas76123/orbi", label: "GitHub" },
     images: [1, 2, 3, 4, 5, 6, 7].map(
       (n) => `${BASE_PATH}/images/projects/orbi/0${n}.jpg`
     ),
