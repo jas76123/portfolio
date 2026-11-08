@@ -2,6 +2,10 @@ import { BASE_PATH, PHOTO_SIZES } from "../config";
 import { TypingText } from "./animations/TypingText";
 import { PixelSpawn } from "./animations/PixelSpawn";
 import { MouseParallax } from "./animations/MouseParallax";
+import { ScrambleCycle } from "./animations/Scramble";
+import { CountUp, Magnetic } from "./animations/Motion";
+
+const roles = ["Системный аналитик", "Product Manager", "Project Manager"];
 
 export default function Hero() {
   return (
@@ -66,14 +70,15 @@ export default function Hero() {
       </div>
 
       <p
-        className="text-accent text-center mb-2 relative z-10"
+        className="text-accent text-center mb-2 relative z-10 caret min-h-[1.6em]"
         style={{
           fontFamily: "var(--pixel-font)",
           fontSize: "14px",
+          lineHeight: "1.6",
           animation: "fadeIn 500ms ease-out 800ms backwards",
         }}
       >
-        Менеджер проектов
+        <ScrambleCycle words={roles} />
       </p>
 
       <p
@@ -81,20 +86,40 @@ export default function Hero() {
         style={{
           fontFamily: "var(--pixel-font)",
           fontSize: "10px",
-          color: "var(--accent-light)",
+          lineHeight: "1.8",
+          color: "var(--foreground)",
+          opacity: 0.75,
           animation: "fadeIn 500ms ease-out 1100ms backwards",
         }}
       >
-        Требования · Backlog · MVP · Приёмка
+        Требования · SQL · API · BPMN / UML · MVP
       </p>
 
       <div className="flex gap-4 flex-wrap justify-center relative z-10">
-        <a href="#projects" className="pixel-btn">
-          Проекты
-        </a>
-        <a href="#contacts" className="pixel-btn-outline">
-          Контакты
-        </a>
+        <Magnetic>
+          <a href="#projects" className="pixel-btn">
+            Проекты
+          </a>
+        </Magnetic>
+        <Magnetic>
+          <a href="#contacts" className="pixel-btn-outline">
+            Контакты
+          </a>
+        </Magnetic>
+      </div>
+
+      <div
+        className="grid grid-cols-2 gap-4 mt-12 w-full max-w-xl relative z-10"
+        style={{ animation: "fadeIn 500ms ease-out 1400ms backwards" }}
+      >
+        <div className="stat-card">
+          <span className="stat-value"><CountUp to={11} suffix=" мес" /></span>
+          <span className="stat-label">в продуктовой команде B2B SaaS</span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-value">Топ-<CountUp to={10} /></span>
+          <span className="stat-label">«Лидеры цифровой трансформации» 2026</span>
+        </div>
       </div>
 
       {/* Pixel arrow down */}

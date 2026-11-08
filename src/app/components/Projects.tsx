@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BASE_PATH } from "../config";
 import { RevealOnScroll } from "./animations/RevealOnScroll";
+import { ScrambleOnView } from "./animations/Scramble";
 
 type Project = {
   title: string;
@@ -23,12 +24,12 @@ const projects: Project[] = [
       "Подбор отеля по тому, чего нет в карточке: виден ли закат, тихо ли ночью, сколько на самом деле идти до моря. Система считает характеристики по открытым геоданным, уточняет недостающее у отельера и ищет по запросу обычными словами. Демо на 150 отелях Сочи.",
     role: "Капитан команды, Product / Project Manager",
     points: [
-      "Разобрала требования трека и правила сдачи, составила список блокеров",
+      "Разобрала требования трека и правила сдачи, составила список блокеров и вопросов к организаторам",
       "Расставляла приоритеты финальной недели: что доводим до демо, что выносим за рамки MVP",
       "Тестировала сценарии и роли, вела список дефектов и перепроверяла исправления",
       "Довела команду из пяти человек до сдачи в срок",
     ],
-    tech: ["MVP", "Приоритизация", "Функциональное тестирование", "Go", "React"],
+    tech: ["Анализ требований", "MVP", "Приоритизация", "Функциональное тестирование", "Go", "React"],
     repo: { url: "https://github.com/jas76123/orbi", label: "GitHub" },
     images: [1, 2, 3, 4, 5, 6, 7].map(
       (n) => `${BASE_PATH}/images/projects/orbi/0${n}.jpg`
@@ -39,15 +40,15 @@ const projects: Project[] = [
     badge: "Лидеры цифровой трансформации 2026 · Топ-10",
     description:
       "Контроль стройки: снимки с камер на площадке и фотоотчёты прорабов из мобильного приложения «Объектив» сверяются с календарным планом, нейросеть распознаёт технику. Руководитель видит план-факт, риски и календарь по всем объектам.",
-    role: "Product Manager",
+    role: "Product Manager, анализ требований",
     points: [
       "Определила границы MVP и главный сценарий: сверка факта с календарным планом",
-      "Вела задачи команды в Jira: декомпозиция, приоритеты, статусы и сроки",
-      "Проводила дейлики и синхронизировала аналитика, дизайнера, ML- и бэкенд-разработчиков",
       "Проработала роли, статусы работ и путь фотоотчёта: отправка, проверка, возврат на доработку",
-      "Проводила прогоны пользовательских сценариев перед сдачей",
+      "Согласовывала требования и макеты с аналитиком, дизайнером, ML- и бэкенд-разработчиками",
+      "Вела задачи команды в Jira: декомпозиция, приоритеты, статусы и сроки",
+      "Проводила дейлики и прогоны пользовательских сценариев перед сдачей",
     ],
-    tech: ["MVP", "Jira", "Дейлики", "Пользовательские сценарии", "React Native", "Python"],
+    tech: ["Роли и статусы", "Пользовательские сценарии", "MVP", "Jira", "React Native", "Python"],
     repo: { url: "https://sourcecraft.dev/cd-rec/construction-monitoring?rev=main", label: "SourceCraft" },
     // Сначала мобильное приложение прораба, затем дашборд руководителя,
     // аналитика камер с площадки и импорт графика
@@ -62,10 +63,13 @@ const projects: Project[] = [
       "Гражданское приложение для жалоб на состояние города: жители отправляют обращения с фото и геометкой, следят за статусом на карте и в ленте, а сотрудники обрабатывают жалобы через веб-панель администратора.",
     role: "Полный цикл: от анализа до демонстрации",
     points: [
-      "Описала жизненный цикл обращения: статусы, ответственные, контроль сроков",
+      "Собрала требования и выделила роли: житель и сотрудник, обрабатывающий жалобы",
+      "Описала жизненный цикл обращения: статусы и переходы, ответственные, контроль сроков (SLA)",
+      "Спроектировала REST API на 38 эндпоинтов и описала его в OpenAPI, авторизация по JWT",
+      "Обсуждала проект с администрацией Сочи",
       "Прошла путь от требований и проектирования до разработки, тестирования и защиты",
     ],
-    tech: ["Kotlin Multiplatform", "Compose", "Ktor", "Docker"],
+    tech: ["Требования", "OpenAPI", "REST", "JWT", "Kotlin Multiplatform", "Ktor", "Docker"],
     repo: { url: "https://github.com/jas76123/clean-city", label: "GitHub" },
     images: [
       // Мобильный клиент
@@ -253,14 +257,7 @@ function ProjectCard({ project }: { project: Project }) {
           {project.title}
         </h3>
 
-        <p
-          className="text-foreground mb-4"
-          style={{
-            fontFamily: "var(--pixel-font)",
-            fontSize: "10px",
-            lineHeight: "2",
-          }}
-        >
+        <p className="mono-text text-foreground mb-4">
           {project.description}
         </p>
 
@@ -310,13 +307,13 @@ export default function Projects() {
       <div className="max-w-5xl mx-auto">
         <RevealOnScroll>
           <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
-            Проекты
+            <ScrambleOnView text="Проекты" />
           </h2>
         </RevealOnScroll>
 
         <div className="flex flex-col gap-10">
           {projects.map((project, i) => (
-            <RevealOnScroll key={project.title} delayMs={i * 100}>
+            <RevealOnScroll key={project.title} delayMs={i * 100} threshold={0.1} variant="wipe">
               <ProjectCard project={project} />
             </RevealOnScroll>
           ))}

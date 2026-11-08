@@ -1,4 +1,6 @@
 import { RevealOnScroll } from "./animations/RevealOnScroll";
+import { ScrambleOnView } from "./animations/Scramble";
+import { Tilt } from "./animations/Motion";
 
 export default function Contacts() {
   return (
@@ -6,12 +8,17 @@ export default function Contacts() {
       <div className="max-w-4xl mx-auto">
         <RevealOnScroll>
           <h2 className="section-title text-foreground mb-12 text-center mx-auto block w-fit">
-            Контакты
+            <ScrambleOnView text="Контакты" />
           </h2>
+          <p className="mono-text text-foreground text-center max-w-lg mx-auto -mt-4 mb-10">
+            Ищу роль системного аналитика, продакта или проджекта.
+            Быстрее всего отвечаю в Telegram.
+          </p>
         </RevealOnScroll>
 
-        <RevealOnScroll delayMs={150}>
-          <div className="pixel-card p-8 md:p-12 max-w-lg mx-auto">
+        <RevealOnScroll delayMs={150} variant="wipe">
+          <Tilt max={5} className="max-w-lg mx-auto">
+          <div className="pixel-card p-8 md:p-12">
             <div className="flex flex-col gap-8">
               {/* Email */}
               <div className="flex items-start gap-4">
@@ -132,6 +139,7 @@ export default function Contacts() {
               ))}
             </div>
           </div>
+          </Tilt>
         </RevealOnScroll>
       </div>
     </section>
