@@ -1,9 +1,10 @@
 import { RevealOnScroll } from "./animations/RevealOnScroll";
 import { ScrambleOnView } from "./animations/Scramble";
 import { Tilt } from "./animations/Motion";
+import { BASE_PATH } from "../config";
 
 // У аналитических навыков нет логотипов, поэтому вместо иконки — пиксельный символ.
-// Инструменты с логотипом берут иконку из simpleicons.
+// Инструменты с логотипом берут иконку из public/icons (белые SVG из simpleicons).
 const analysisSkills = [
   { name: "Сбор требований и ТЗ", color: "#6c63ff", symbol: "ТЗ" },
   { name: "User Stories и AC", color: "#a29bfe", symbol: "US" },
@@ -61,7 +62,7 @@ function SkillGrid({ skills }: { skills: Skill[] }) {
               >
                 {skill.icon ? (
                   <img
-                    src={`https://cdn.simpleicons.org/${skill.icon}/white`}
+                    src={`${BASE_PATH}/icons/${skill.icon}.svg`}
                     alt=""
                     className="w-8 h-8"
                     loading="lazy"

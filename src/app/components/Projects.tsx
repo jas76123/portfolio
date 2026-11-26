@@ -32,7 +32,7 @@ const projects: Project[] = [
     tech: ["Анализ требований", "MVP", "Приоритизация", "Функциональное тестирование", "Go", "React"],
     repo: { url: "https://github.com/jas76123/orbi", label: "GitHub" },
     images: [1, 2, 3, 4, 5, 6, 7].map(
-      (n) => `${BASE_PATH}/images/projects/orbi/0${n}.jpg`
+      (n) => `${BASE_PATH}/images/projects/orbi/0${n}.webp`
     ),
   },
   {
@@ -73,22 +73,22 @@ const projects: Project[] = [
     repo: { url: "https://github.com/jas76123/clean-city", label: "GitHub" },
     images: [
       // Мобильный клиент
-      `${BASE_PATH}/images/projects/cleancity/01.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/02.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/03.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/04.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/05.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/06.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/07.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/08.jpg`,
+      `${BASE_PATH}/images/projects/cleancity/01.webp`,
+      `${BASE_PATH}/images/projects/cleancity/02.webp`,
+      `${BASE_PATH}/images/projects/cleancity/03.webp`,
+      `${BASE_PATH}/images/projects/cleancity/04.webp`,
+      `${BASE_PATH}/images/projects/cleancity/05.webp`,
+      `${BASE_PATH}/images/projects/cleancity/06.webp`,
+      `${BASE_PATH}/images/projects/cleancity/07.webp`,
+      `${BASE_PATH}/images/projects/cleancity/08.webp`,
       // Веб-панель администратора
-      `${BASE_PATH}/images/projects/cleancity/09.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/10.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/11.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/12.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/13.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/14.jpg`,
-      `${BASE_PATH}/images/projects/cleancity/15.jpg`,
+      `${BASE_PATH}/images/projects/cleancity/09.webp`,
+      `${BASE_PATH}/images/projects/cleancity/10.webp`,
+      `${BASE_PATH}/images/projects/cleancity/11.webp`,
+      `${BASE_PATH}/images/projects/cleancity/12.webp`,
+      `${BASE_PATH}/images/projects/cleancity/13.webp`,
+      `${BASE_PATH}/images/projects/cleancity/14.webp`,
+      `${BASE_PATH}/images/projects/cleancity/15.webp`,
     ],
   },
   {
@@ -98,8 +98,8 @@ const projects: Project[] = [
     tech: ["Kotlin", "Jetpack Compose", "Room"],
     repo: { url: "https://github.com/jas76123/vocabmaster", label: "GitHub" },
     images: [
-      `${BASE_PATH}/images/projects/vocabmaster/1.png`,
-      `${BASE_PATH}/images/projects/vocabmaster/2.png`,
+      `${BASE_PATH}/images/projects/vocabmaster/1.webp`,
+      `${BASE_PATH}/images/projects/vocabmaster/2.webp`,
     ],
   },
 ];

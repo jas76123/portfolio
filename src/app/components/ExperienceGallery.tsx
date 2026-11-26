@@ -4,12 +4,12 @@ import { useState } from "react";
 import { BASE_PATH } from "../config";
 
 const shots = [
-  { file: "01.jpg", caption: "Вопрос экзамена с объяснением ответа" },
-  { file: "02.jpg", caption: "Билеты и внутренний экзамен" },
-  { file: "03.jpg", caption: "Билеты по темам" },
-  { file: "04.jpg", caption: "Посещаемость лекций" },
-  { file: "05.jpg", caption: "Результативность посещённых лекций" },
-  { file: "06.jpg", caption: "Статистика по темам лекций" },
+  { file: "01.webp", caption: "Вопрос экзамена с объяснением ответа" },
+  { file: "02.webp", caption: "Билеты и внутренний экзамен" },
+  { file: "03.webp", caption: "Билеты по темам" },
+  { file: "04.webp", caption: "Посещаемость лекций" },
+  { file: "05.webp", caption: "Результативность посещённых лекций" },
+  { file: "06.webp", caption: "Статистика по темам лекций" },
   { file: "07.jpg", caption: "3D-сцены для тренировки ситуаций на дороге" },
 ].map((s) => ({ ...s, src: `${BASE_PATH}/images/experience/autoschool/${s.file}` }));
 
